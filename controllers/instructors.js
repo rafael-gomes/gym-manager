@@ -1,33 +1,16 @@
 const fs = require('fs')
-const data = require ('./data.json')
+const data = require ('../data.json')
 const Intl = require('intl')
-const { age, date } = require ('./utils')
+const { age, date } = require ('../utils')
 
 exports.index = function (req, res) {
     return res.render("instructors/index", { instructors: data.instructors })
 }
 
-//show
-exports.show = function(req, res) {
-    const { id } = req.params
-
-    const foundInstructor = data.instructors.find(function(instructor) {
-        return id == instructor.id
-    })
-
-    if (!foundInstructor) return res.send("Instructor not found!")
-
-    const instructor = {
-        ...foundInstructor,
-        age: age(foundInstructor.birth),
-        services: foundInstructor.services.split(","),
-        created_at: new Intl.DateTimeFormat('pt-BR').format(foundInstructor.created_at),
-    }
-    return res.render("instructors/show", { instructor })
-
+exports.create = function (req, res) {
+    return res.render('instructors/create')
 }
 
-// create
 exports.post = function (req, res) {
     const keys = Object.keys(req.body)
 
@@ -56,11 +39,29 @@ exports.post = function (req, res) {
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
         if (err) return res.send ("Write file error")
 
-        return res.redirect("/instructors")
+        return res.redirect(`/instructors/${id}`)
     })
 }
 
-// edit
+exports.show = function(req, res) {
+    const { id } = req.params
+
+    const foundInstructor = data.instructors.find(function(instructor) {
+        return id == instructor.id
+    })
+
+    if (!foundInstructor) return res.send("Instructor not found!")
+
+    const instructor = {
+        ...foundInstructor,
+        age: age(foundInstructor.birth),
+        services: foundInstructor.services.split(","),
+        created_at: new Intl.DateTimeFormat('pt-BR').format(foundInstructor.created_at),
+    }
+    return res.render("instructors/show", { instructor })
+
+}
+
 exports.edit = function(req, res){
     const { id } = req.params
 
@@ -72,13 +73,12 @@ exports.edit = function(req, res){
 
     const instructor = {
         ...foundInstructor,
-        birth: date(foundInstructor.birth)
+        birth: date(foundInstructor.birth).iso
     }
 
     return res.render('instructors/edit', { instructor })
 }
 
-// put
 exports.put = function(req, res) {
     const { id } = req.body
     let index = 0
