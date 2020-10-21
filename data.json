@@ -1,4 +1,28 @@
 {
+  "members": [
+    {
+      "id": 1,
+      "avatar_url": "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      "name": "Rafael Gomes",
+      "email": "rafael@gmail.com",
+      "birth": 523411200000,
+      "gender": "M",
+      "blood": "O+",
+      "weight": "72",
+      "height": "178"
+    },
+    {
+      "id": 2,
+      "avatar_url": "https://images.unsplash.com/photo-1550345332-09e3ac987658?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      "name": "Fernanda",
+      "email": "fernanda@gmail.com",
+      "birth": 958780800000,
+      "gender": "F",
+      "blood": "AB+",
+      "weight": "65",
+      "height": "160"
+    }
+  ],
   "instructors": [
     {
       "id": 1,
